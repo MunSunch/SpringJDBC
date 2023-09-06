@@ -1,0 +1,26 @@
+version: '3'
+services:
+  custom-orders:
+    build:
+      context: .
+    ports:
+      - '8082:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/data
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=data
+    networks:
+      - backend
+
+networks:
+  backend:
