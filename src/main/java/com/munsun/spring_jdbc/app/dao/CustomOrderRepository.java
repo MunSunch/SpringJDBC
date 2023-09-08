@@ -1,5 +1,9 @@
 package com.munsun.spring_jdbc.app.dao;
 
+import com.munsun.spring_jdbc.app.model.Order;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,18 +20,14 @@ import java.util.stream.Collectors;
 
 @Repository
 public class CustomOrderRepository {
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    public CustomOrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<String> getProductName(String name) {
         String query = read("data.sql");
-        Map<String, String> map = new HashMap();
-            map.put("name", name);
-        return namedParameterJdbcTemplate.queryForList(query, map, String.class);
+        return entityManager.createQuery("select o from Customer c join fetch Order o on c.id = o.id where lower(c.name) = :name", Order.class)
+                .setParameter("name", name)
+                .getResultList().stream().map(Order::getProductName).collect(Collectors.toList());
     }
 
     private static String read(String scriptFileName) {
