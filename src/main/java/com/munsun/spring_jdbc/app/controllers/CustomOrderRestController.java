@@ -1,8 +1,9 @@
 package com.munsun.spring_jdbc.app.controllers;
 
-import com.munsun.spring_jdbc.app.dao.CustomOrderRepository;
+import com.munsun.spring_jdbc.app.dao.PersonDao;
+import com.munsun.spring_jdbc.app.model.Person;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,18 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @Validated
 public class CustomOrderRestController {
-    private CustomOrderRepository repository;
+    private PersonDao repository;
 
-    @Autowired
-    public CustomOrderRestController(CustomOrderRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping("/products/fetch-product")
-    public List<String> getOrderNameByCustomerName(@RequestParam @NotBlank String name) {
-        return repository.getProductName(name);
+    @GetMapping("/persons/by-city")
+    public List<Person> getOrderNameByCustomerName(@RequestParam @NotBlank String city) {
+        return repository.getPersonsByCity(city);
     }
 }

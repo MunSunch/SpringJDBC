@@ -39,7 +39,7 @@
                      relativeToChangelogFile="true"
                      splitStatements="true"
                      stripComments="true"
-                     path="schema_delete_data.sql"/>
+                     path="drop_data.sql"/>
         </rollback>
     </changeSet>
 
