@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Info> {
     List<Person> findPersonByCity(String city);
+    List<Person> findPersonByInfo_AgeLessThanOrderByInfo_AgeAsc(Integer age);
+    List<Person> findPersonByInfo_NameOrInfo_Surname(String name, String surname);
 }
