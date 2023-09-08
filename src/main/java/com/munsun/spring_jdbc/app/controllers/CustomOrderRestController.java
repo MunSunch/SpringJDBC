@@ -21,18 +21,18 @@ public class CustomOrderRestController {
 
     @GetMapping("/persons/by-city")
     public List<Person> getPersonsByCity(@RequestParam @NotBlank String city) {
-        return repository.findPersonByCity(city);
+        return repository.execQueryByCity(city);
     }
 
     @GetMapping("/persons/by-less-age")
     public List<Person> getPersonByAge(@RequestParam @Positive Integer age) {
-        return repository.findPersonByInfo_AgeLessThanOrderByInfo_AgeAsc(age);
+        return repository.execQueryByInfoLessThanAgeOrderByAge(age);
     }
 
     @GetMapping("/persons/by-name-or-surname")
     public List<Person> getOrderNameByCustomerName(@RequestParam @NotBlank String name,
-                                                       @RequestParam @NotBlank String surname)
+                                                   @RequestParam @NotBlank String surname)
     {
-        return repository.findPersonByInfo_NameOrInfo_Surname(name, surname);
+        return repository.execQueryByInfo_NameOrInfo_Surname(name, surname);
     }
 }
