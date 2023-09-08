@@ -20,7 +20,7 @@ public class CustomOrderRestController {
     private PersonRepository repository;
 
     @GetMapping("/persons/by-city")
-    public List<Person> getOrderNameByCustomerName(@RequestParam @NotBlank String city) {
+    public List<Person> getPersonsByCity(@RequestParam @NotBlank String city) {
         return repository.findPersonByCity(city);
     }
 
