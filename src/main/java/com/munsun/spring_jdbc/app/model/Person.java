@@ -1,9 +1,6 @@
 package com.munsun.spring_jdbc.app.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Builder
@@ -21,4 +18,8 @@ public class Person {
 
     @Column(name="city_of_living")
     private String city;
+
+    @ManyToOne
+    @JoinColumn(name = "account_ID", referencedColumnName = "id")
+    private Account account;
 }
