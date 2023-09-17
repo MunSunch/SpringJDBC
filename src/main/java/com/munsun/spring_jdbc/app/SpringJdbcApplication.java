@@ -10,6 +10,7 @@ public class SpringJdbcApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println();
         System.out.println("munsun " + "admin " + "ADMIN " + "ACTIVE");
+        System.out.println("andrey " + "andrey " + "READ " + "ACTIVE");
         System.out.println("kol2023 " + "12345 " + "USER " + "ACTIVE");
         System.out.println("lololo " + "lololo " + "USER " + "REMOVED");
         System.out.println();

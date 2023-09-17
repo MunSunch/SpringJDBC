@@ -23,5 +23,4 @@
     <changeSet id="7" author="MunSun">
         <tagDatabase tag="v-2.0"/>
     </changeSet>
-
 </databaseChangeLog>

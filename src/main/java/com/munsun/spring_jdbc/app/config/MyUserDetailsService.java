@@ -2,7 +2,9 @@ package com.munsun.spring_jdbc.app.config;
 
 import com.munsun.spring_jdbc.app.dao.AccountsRepository;
 import com.munsun.spring_jdbc.app.model.Account;
+import com.munsun.spring_jdbc.app.model.Status;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +20,15 @@ public class MyUserDetailsService implements UserDetailsService {
         Account account = repository.findByLogin(username).orElseThrow(()->
             new UsernameNotFoundException("user not found")
         );
-        return MyUserDetail.account2UserDetail(account);
+        var user =  User.builder()
+                    .username(account.getLogin())
+                    .password(account.getPassword())
+                    .roles(account.getRole().name())
+                    .disabled(!account.getStatus().name().equals(Status.ACTIVE.name()))
+                    .accountExpired(!account.getStatus().name().equals(Status.ACTIVE.name()))
+                    .accountLocked(!account.getStatus().name().equals(Status.ACTIVE.name()))
+                    .credentialsExpired(!account.getStatus().name().equals(Status.ACTIVE.name()))
+                .build();
+        return user;
     }
 }
