@@ -43,12 +43,9 @@ public class CustomOrderRestController {
         return repository.execQueryByInfo_NameOrInfo_Surname(name, surname);
     }
 
+    @PreAuthorize("#username == authentication.name")
     @GetMapping("/persons/get")
     public List<Person> getAll(@RequestParam(name="user") String username) {
-        String user = SecurityContextHolder.getContext().getAuthentication().getName();
-        if(user.equals(username)) {
-            return repository.findAll();
-        }
-        return null;
+        return repository.findAll();
     }
 }
